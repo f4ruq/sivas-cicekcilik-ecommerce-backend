@@ -5,7 +5,6 @@ import os
 
 app = Flask(__name__)
 
-# ENV değişkenlerini çek (Cloud Run panelinden girilecek)
 VERIFY_TOKEN = os.environ.get("VERIFY_TOKEN")
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 WHATSAPP_TOKEN = os.environ.get("WHATSAPP_TOKEN")
@@ -39,8 +38,7 @@ def verify_webhook():
     else:
         print("TOKEN EŞLEŞMEDİ → 403")
         return "Forbidden", 403
-
-
+    
 # ---------------------------------------------------
 # MESAJ ALMA (POST)
 # ---------------------------------------------------
@@ -63,7 +61,6 @@ def webhook():
 
     return "EVENT_RECEIVED", 200
 
-
 # ---------------------------------------------------
 # MESAJ GÖNDERME FONKSİYONU 
 # ---------------------------------------------------
@@ -82,7 +79,6 @@ def send_message(to, message):
 
     response = requests.post(GRAPH_API_URL, headers=headers, json=data)
     print("Gönderim Yanıtı:", response.json())
-
 
 # ---------------------------------------------------
 # WOOCOMMERCE SİPARİŞ BİLDİRİM ENDPOINT
@@ -110,7 +106,6 @@ def order_notification():
     except Exception as e:
         print("Sipariş bildirimi hatası:", e)
         return jsonify({"error": str(e)}), 400
-
 
 # ---------------------------------------------------
 # UYGULAMAYI BAŞLAT (Cloud Run için)
